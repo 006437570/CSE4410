@@ -1,4 +1,4 @@
-# CSE 4200 Group Project
+# CSE 4410 Group Project
 
 Team:
 Mauricio Ochoa
