@@ -17,22 +17,8 @@ public class Interactable : MonoBehaviour
     private Collider2D itemCol;
     [SerializeField]
     private int numItemInRange;
-
-/*
     [SerializeField]
-    private bool interactItemBool;*/
-
-
-    /* UI STUFF
-    [SerializeField]
-    private GameObject uiObject;
-    [SerializeField]
-    private PopUpUI PopUpScript;
-    [SerializeField]
-    private bool interactUIBool;
-    [SerializeField]
-    private bool inRangeUI
-    */
+    private itemID itemID;
     
     void Awake()
     {
@@ -43,16 +29,7 @@ public class Interactable : MonoBehaviour
         itemCol =  null;
         numItemInRange = 0;
         itemHolder = transform.GetChild(0);
-
-
-        /* UI STUFF FOR LATER
-        inRangeUI = false;
-        interactUIBool = false;
-        interactItemBool = false;
-        itemObject = null;
-        uiObject = null;
-        numItemInRange = 0;
-        */
+        itemID = null;
     }
 
     void Update()
@@ -71,6 +48,7 @@ public class Interactable : MonoBehaviour
                         itemRb.isKinematic = true;
                     }
                     itemCol.enabled = false;
+                    itemID.isHeld = true;
                     return;
                 }
                 if(itemSlotFull)
@@ -83,6 +61,7 @@ public class Interactable : MonoBehaviour
                         itemRb.isKinematic = false;
                     }
                     itemCol.enabled = true;
+                    itemID.isHeld = false;
                     return;
                 }
             }
@@ -108,17 +87,9 @@ public class Interactable : MonoBehaviour
                 itemObject = col.gameObject;
                 itemRb = col.GetComponent<Rigidbody2D>();
                 itemCol = col.GetComponent<BoxCollider2D>();
+                itemID = col.GetComponent<itemID>();
             }
         }
-        /*
-        else if(col.gameObject.CompareTag("UIPopUp"))
-        {
-            interactUIBool = true;
-            inRangeUI = true;
-            uiObject = col.gameObject;
-            PopUpScript = col.GetComponent<PopUpUI>();
-            Debug.Log("Player now in range of UI interactable");
-        }*/
     }
 
     private void OnTriggerExit2D(Collider2D col)
@@ -134,6 +105,7 @@ public class Interactable : MonoBehaviour
                     itemObject = null;
                     itemRb = null;
                     itemCol = null;
+                    itemID = null;
                 }
             }
         }
@@ -148,16 +120,8 @@ public class Interactable : MonoBehaviour
                 itemObject = col.gameObject;
                 itemRb = col.GetComponent<Rigidbody2D>();
                 itemCol = col.GetComponent<BoxCollider2D>();
+                itemID = col.GetComponent<itemID>();
             }
         }
     }
-        /*
-        if(col.gameObject.CompareTag("UIPopUp"))
-        {
-            interactUIBool = true;
-            inRangeUI = false;
-            uiObject = null;
-            PopUpScript = null;
-            Debug.Log("Out of range of UI interactable");
-        }*/
 }
